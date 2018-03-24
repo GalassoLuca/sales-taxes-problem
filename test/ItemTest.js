@@ -32,13 +32,13 @@ describe('ItemSummary', function() {
 		})
 	})
 
-	it('the shelf price should be the untaxed price if the taxes are 0', function() {
+	it('the shelf price should be the untaxed price if there are no taxes', function() {
 		const item = new Item("book", 2, 12.49, 0)
 		
 		expect(item.shelfPrice).to.equal(12.49)
 	})
 
-	it('the price of the shelf should be the price of the item plus the amount of taxes', function() {
+	it('the shelf price should be the untaxed price plus the amount of taxes', function() {
 		const item = new Item("book", 2, 12.49, 0.1)
 		
 		expect(item.shelfPrice).to.equal(13.74)
