@@ -1,0 +1,25 @@
+{
+  "name": "sales-taxes-problem",
+  "version": "1.0.0",
+  "description": "This problem requires some kind of input. You are free to implement any mechanism for feeding input into your solution (for example, using hard coded data within a unit test). You should provide sufficient evidence that your solution is complete by, as a minimum, indicating that it works correctly against the supplied test data.",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.5"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test": "mocha --recursive --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GalassoLuca/sales-taxes-problem.git"
+  },
+  "author": "Luca Galasso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GalassoLuca/sales-taxes-problem/issues"
+  },
+  "homepage": "https://github.com/GalassoLuca/sales-taxes-problem#readme"
+}
