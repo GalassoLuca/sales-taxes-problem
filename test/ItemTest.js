@@ -2,9 +2,9 @@ const Item = require('../src/Item')
 const chai = require('chai')
 const expect = chai.expect
 
-describe('ItemSummary', function() {
+describe('Tests of the Item', function() {
 	it('the parameters should be the same', function() {
-		const item = new Item("book", 2, 12.49, 0)
+		const item = new Item('book', 2, 12.49, 0)
 		
 		expect(item.name).to.equal('book')
 		expect(item.quantity).to.equal(2)
@@ -12,7 +12,7 @@ describe('ItemSummary', function() {
 	})
 
 	it('the amount of the tax should be 0 if the percentage is 0', function() {
-		const item = new Item("book", 2, 12.49, 0)
+		const item = new Item('book', 2, 12.49, 0)
 		
 		expect(item.taxAmountRounded).to.equal(0.00)
 	})
@@ -26,21 +26,33 @@ describe('ItemSummary', function() {
 
 		tests.forEach(function(test) {
 			test.prices.forEach(function(price) {
-				const item = new Item("book", 2, price, 0.10)
+				const item = new Item('book', 2, price, 0.10)
 				expect(item.taxAmountRounded).to.equal(test.taxAmountRounded)
 			})
 		})
 	})
 
 	it('the shelf price should be the untaxed price if there are no taxes', function() {
-		const item = new Item("book", 2, 12.49, 0)
+		const item = new Item('book', 2, 12.49, 0)
 		
 		expect(item.shelfPrice).to.equal(12.49)
 	})
 
 	it('the shelf price should be the untaxed price plus the amount of taxes', function() {
-		const item = new Item("book", 2, 12.49, 0.1)
+		const item = new Item('book', 2, 12.49, 0.1)
 		
 		expect(item.shelfPrice).to.equal(13.74)
+	})
+
+	it('an imported product should have an extra tax of 5%', function() {
+		const item = new Item('book', 2, 12.49, 0.1, true)
+
+		expect(item.shelfPrice).to.equal(14.84)
+	})
+
+	it('the rounding of the taxes is a final operation', function() {
+		const item = new Item('book', 2, 0.24, 0.1, true)
+
+		expect(item.shelfPrice).to.equal(0.29)
 	})
 })
