@@ -26,16 +26,22 @@ module.exports = class Item {
 		return this._tax
 	}
 	get taxAmountRounded() {
-		const taxAmount = this._price * this._tax
-		const taxAmountRounded = Math.round(taxAmount / ROUND_PRECISION) * ROUND_PRECISION
-		return taxAmountRounded * this._quantity
+		const singleTax = this._price * this._tax
+		const singleTaxRounded = Math.round(singleTax / ROUND_PRECISION) * ROUND_PRECISION
+		const taxAmountRounded = singleTaxRounded * this._quantity
+		return Item.fixFloatingPointBug(taxAmountRounded)
 	}
 	get shelfPrice() {
-		let shelfPrice = this._price * this._quantity + this.taxAmountRounded
-		// floating point representation fail: https://gooroo.io/GoorooTHINK/Article/16306/Is-Math-Broken-in-JavaScript-Part-2/18867#.WrYUuZPwa34
-		return shelfPrice
+		const shelfPrice = this._price * this._quantity + this.taxAmountRounded
+		return Item.fixFloatingPointBug(shelfPrice)
 	}
 	isImported() {
 		return this._isImported
 	}
+
+	static fixFloatingPointBug(floatNumber) {
+		// floating point representation fail: https://gooroo.io/GoorooTHINK/Article/16306/Is-Math-Broken-in-JavaScript-Part-2/18867#.WrYUuZPwa34
+		return parseFloat(floatNumber.toFixed(2))
+	}
 }
+
