@@ -57,7 +57,7 @@ describe('Tests of the Item', function() {
 	it('an imported product should have an extra tax of 5%', function() {
 		const item = new Item('book', 1, 12.49, true, true)
 
-		expect(item.shelfPrice).to.equal(14.84)
+		expect(item.shelfPrice).to.equal(14.34)
 	})
 
 	it('shelf price for item with more quantity', function() {
