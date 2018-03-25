@@ -4,7 +4,14 @@ const CATEGORIES = require('../config/categories.json')
 
 module.exports = class Parser {
 	static parseBasket(text) {
+		const basket = new Basket()
+		const lineArray = text.split('\n')
 
+		lineArray.forEach(function(line) {
+			basket.addItem(Parser.parseItem(line))
+		})
+
+		return basket
 	}
 	static parseItem(lineText) {
 		const textArray = lineText.split(' ')
