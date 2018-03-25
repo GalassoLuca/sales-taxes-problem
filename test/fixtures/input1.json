@@ -5,7 +5,8 @@
 },{
 	"quantity" : 1,
 	"name" : "music CD",
-	"price" : 14.99
+	"price" : 14.99,
+	"hasBasicTax" : true
 },{
 	"quantity" : 1,
 	"name" : "chocolate bar",
