@@ -1,17 +1,5 @@
 {
-	"books" : {
-		"tax" : 0,
-		"items" : ["book"]
-	},
-	"food" : {
-		"tax" : 0,
-		"items" : ["food"]
-	},
-	"medical" : {
-		"tax" : 0,
-		"items" : ["medical"]
-	},
-	"undefined" : {
-		"tax" : 0.10
-	}
+	"books" : ["book"],
+	"food" : ["food"],
+	"medical" : ["medical"]
 }
