@@ -10,7 +10,7 @@ describe('Tests of the shopping Basket', function(){
 	it('empty basket has 0 taxes', function() {
 		const basket = new Basket()
 
-		expect(basket.untaxedPrice).to.equal(0)
+		expect(basket.taxesAmount).to.equal(0)
 		expect(basket.taxedPrice).to.equal(0)
 	})
 
