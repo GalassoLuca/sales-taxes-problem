@@ -6,7 +6,7 @@ describe('Tests of the Item', function() {
 	it('default should be not imported', function() {
 		const item = new Item('book', 1, 12.49, 0.10)
 
-		expect(item.isImported).to.equal(false)
+		expect(item.isImported()).to.equal(false)
 	})
 
 	it('the parameters should be the same', function() {
