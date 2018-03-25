@@ -3,10 +3,10 @@ const Item = require('./Item')
 const CATEGORIES = require('../config/categories.json')
 
 module.exports = class Parser {
-	get parseBasket(text) {
-
+	static parseBasket(text) {
+		console.log(text)
 	}
-	get parseItem(lineText) {
+	static parseItem(lineText) {
 
 	}
 }
