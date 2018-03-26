@@ -22,7 +22,7 @@ describe('Tests of the shopping Basket', function() {
 	describe('Check the receipt of the given input', function() {
 		it('the receipt of the 1st given input should be printed correctly', function() {
 			const basket = new Basket()
-			INPUT1.map(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
+			INPUT1.forEach(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
 
 			const expectedReceipt = `2 book: 24.98
 1 music CD: 16.49
@@ -35,7 +35,7 @@ Total: 42.32`
 
 		it('the receipt of the 2nd given input should be printed correctly', function() {
 			const basket = new Basket()
-			INPUT2.map(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
+			INPUT2.forEach(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
 
 			const expectedReceipt = `1 imported box of chocolates: 10.50
 1 imported bottle of perfume: 54.65
@@ -47,7 +47,7 @@ Total: 65.15`
 
 		it('the receipt of the 3rd given input should be printed correctly', function() {
 			const basket = new Basket()
-			INPUT3.map(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
+			INPUT3.forEach(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
 
 			const expectedReceipt = `1 imported bottle of perfume: 32.19
 1 bottle of perfume: 20.89

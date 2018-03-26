@@ -130,8 +130,8 @@ describe('Tests of the Item', function() {
 				{prices: [999.999, 999.83, 999.501], taxesAmountRounded: 100}
 			]
 
-			tests.map(test => {
-				test.prices.map(price => {
+			tests.forEach(test => {
+				test.prices.forEach(price => {
 					const item = new Item('book', 1, price, hasBasicTax)
 					expect(item.taxesAmountRounded).to.equal(test.taxesAmountRounded)
 				})
