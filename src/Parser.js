@@ -16,13 +16,19 @@ module.exports = class Parser {
 	static parseItem(lineText) {
 		const textArray = lineText.split(' ')
 		
-		const quantity = parseInt(textArray[0])
+		const quantity = parseInt(textArray.shift())
 		const price = parseFloat(textArray.pop())
+		// remove 'at'
 		textArray.pop()
 		
-		const content = Parser._parseContent(textArray.slice(1, textArray.length).join(' '))
-		const hasSalesTax = Parser._hasSalesTax(content.name)
-		return new Item(content.name, quantity, price, hasSalesTax, content.isImported)
+		let name = textArray.join(' ')
+		const isImported = name.includes('imported ')
+		if(isImported) {
+			name = name.replace('imported ', '')
+		}
+
+		const hasSalesTax = Parser._hasSalesTax(name)
+		return new Item(name, quantity, price, hasSalesTax, isImported)
 	}
 	static _parseContent(content){
 		let isImported = false
