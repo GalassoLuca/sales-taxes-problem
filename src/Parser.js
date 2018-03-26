@@ -18,35 +18,35 @@ module.exports = class Parser {
 		let i = 0
 
 		const quantity = parseInt(textArray[i++])
-		let isImported = false
-		if (textArray[i] == 'imported'){
-			isImported = true
-			i++
-		}
+		const content = Parser._parseContent(textArray.slice(i, textArray.length - 2).join(' '))
 
-		const name = textArray.slice(i, textArray.length - 2).join(' ')
-		const hasSalesTax = Parser._hasSalesTax(name)
+		const hasSalesTax = Parser._hasSalesTax(content.name)
 		
 		const price = parseFloat(textArray[textArray.length - 1])
-		return new Item(name, quantity, price, hasSalesTax, isImported)
+		return new Item(content.name, quantity, price, hasSalesTax, content.isImported)
 	}
+	static _parseContent(content){
+		let isImported = false
 
+		const name = content.replace('imported ', function() {
+			isImported = true
+			return ''
+		})
+
+		return { isImported: isImported, name: name}
+	}
 	static _hasSalesTax(name){
 		let hasSalesTax = true
 
-		CATEGORIES.books.forEach(function(keyword) {
-			if (name == keyword)
-				hasSalesTax = false
-		})
-		CATEGORIES.food.forEach(function(keyword) {
-			if (name == keyword)
-				hasSalesTax = false
-		})
-		CATEGORIES.medical.forEach(function(keyword) {
-			if (name == keyword)
-				hasSalesTax = false
+		CATEGORIES.forEach(function(category) {
+			category.keywords.forEach(function(keyword) {
+				if (name == keyword)
+					hasSalesTax = false
+			})
 		})
 
 		return hasSalesTax
 	}
 }
+
+

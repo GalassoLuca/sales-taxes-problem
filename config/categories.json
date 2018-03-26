@@ -1,5 +1,14 @@
-{
-	"books" : ["book"],
-	"food" : ["chocolate bar", "box of chocolates", "chocolates"],
-	"medical" : ["packet of headache pills"]
-}
+[
+	{
+		"name" : "books",
+		"keywords" : ["book"]
+	},
+	{
+		"name" : "food",
+		"keywords" : ["chocolate bar", "box of chocolates", "chocolates"]
+	},
+	{
+		"name" : "medical",
+		"keywords" : ["packet of headache pills"]
+	}
+]
