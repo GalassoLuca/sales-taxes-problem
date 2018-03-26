@@ -15,14 +15,13 @@ module.exports = class Parser {
 	}
 	static parseItem(lineText) {
 		const textArray = lineText.split(' ')
-		let i = 0
-
-		const quantity = parseInt(textArray[i++])
-		const content = Parser._parseContent(textArray.slice(i, textArray.length - 2).join(' '))
-
-		const hasSalesTax = Parser._hasSalesTax(content.name)
 		
-		const price = parseFloat(textArray[textArray.length - 1])
+		const quantity = parseInt(textArray[0])
+		const price = parseFloat(textArray.pop())
+		textArray.pop()
+		
+		const content = Parser._parseContent(textArray.slice(1, textArray.length).join(' '))
+		const hasSalesTax = Parser._hasSalesTax(content.name)
 		return new Item(content.name, quantity, price, hasSalesTax, content.isImported)
 	}
 	static _parseContent(content){
@@ -36,16 +35,7 @@ module.exports = class Parser {
 		return { isImported: isImported, name: name}
 	}
 	static _hasSalesTax(name){
-		let hasSalesTax = true
-
-		CATEGORIES.forEach(function(category) {
-			category.keywords.forEach(function(keyword) {
-				if (name == keyword)
-					hasSalesTax = false
-			})
-		})
-
-		return hasSalesTax
+		return ! CATEGORIES.some(category => {return category.keywords.includes(name)})
 	}
 }
 
