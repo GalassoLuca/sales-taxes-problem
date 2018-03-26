@@ -15,7 +15,7 @@ module.exports = class Baskets {
 		let taxesAmount = 0
 
 		this._items.forEach(function(item) {
-			taxesAmount += item.taxAmountRounded
+			taxesAmount += item.taxesAmountRounded
 		})
 
 		return taxesAmount
@@ -27,7 +27,7 @@ module.exports = class Baskets {
 
 		this._items.forEach(function(item) {
 			receipt += item.quantity + ' ' + (item.isImported() ? 'imported ' : '') + item.name + ': ' + item.shelfPrice.toFixed(2) + '\n'
-			taxesAmount += item.taxAmountRounded
+			taxesAmount += item.taxesAmountRounded
 			taxedPrice += item.shelfPrice
 		})
 
