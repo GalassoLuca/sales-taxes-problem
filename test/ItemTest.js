@@ -127,7 +127,7 @@ describe('Tests of the Item', function() {
 				{prices: [0.5001, 0.51, 0.8, 1.0, 1], taxesAmountRounded: 0.10},
 				{prices: [12.00001, 12.01, 12.49, 12.5], taxesAmountRounded: 1.25},
 				{prices: [12.50001, 12.51, 12.99, 13], taxesAmountRounded: 1.3},
-				{prices: [99999.999, 99999.83, 99999.501], taxesAmountRounded: 1000}
+				{prices: [999.999, 999.83, 999.501], taxesAmountRounded: 100}
 			]
 
 			tests.forEach(function(test) {
