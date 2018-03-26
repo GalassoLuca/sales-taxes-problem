@@ -11,16 +11,28 @@ describe('Parser test', function() {
 		expect(item.price).to.equal(12.49)
 	})
 
-	it('not imported books should not have taxes', function() {
+	it('book should not have the basic taxed', function() {
 		const item = Parser.parseItem('2 book at 12.49')
 
-		expect(item.tax).to.equal(0)
+		expect(item.hasBasicTax()).to.equal(false)
 	})
 
-	it('imported food should have 5% tax', function() {
+	it('bottle of perfume should have the basic taxed', function() {
+		const item = Parser.parseItem('1 bottle of perfume at 18.99')
+
+		expect(item.hasBasicTax()).to.equal(true)
+	})
+
+	it('not imported book should not have the import tax', function() {
+		const item = Parser.parseItem('2 book at 12.49')
+
+		expect(item.isImported()).to.equal(false)
+	})
+
+	it('imported food should have the import tax', function() {
 		const item = Parser.parseItem('1 imported box of chocolates at 10.00')
 
-		expect(item.tax).to.equal(0.05)
+		expect(item.isImported()).to.equal(true)
 	})
 
 	describe('Check the receipt of the given input', function() {
