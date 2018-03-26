@@ -20,14 +20,11 @@ module.exports = class Parser {
 		const price = parseFloat(textArray.pop())
 		// remove 'at'
 		textArray.pop()
-		
-		let name = textArray.join(' ')
-		const isImported = name.includes('imported ')
-		if(isImported) {
-			name = name.replace('imported ', '')
-		}
 
+		const isImported = textArray.includes('imported')
+		const name = textArray.filter(word => {return word !== 'imported'}).join(' ')
 		const hasSalesTax = Parser._hasSalesTax(name)
+
 		return new Item(name, quantity, price, hasSalesTax, isImported)
 	}
 	static _parseContent(content){
