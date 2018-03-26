@@ -9,9 +9,6 @@ module.exports = class Item {
 		this._price = price
 		this._hasBasicTax = hasBasicTax
 		this._isImported = isImported
-
-		this._tax = 0
-		this._tax += ( hasBasicTax ? BASIC_TAX : 0) + ( isImported ? IMPORTED_TAX : 0) // semantic meaning of different tax
 	}
 	get name() {
 		return this._name
@@ -22,24 +19,37 @@ module.exports = class Item {
 	get price() {
 		return this._price
 	}
-	get tax() {
-		return this._tax
-	}
-	get taxAmountRounded() {
-		const singleTax = this._price * this._tax
-		const singleTaxRounded = Math.round(singleTax / ROUND_PRECISION) * ROUND_PRECISION
-		const taxAmountRounded = singleTaxRounded * this._quantity
-		return Item.fixFloatingPointBug(taxAmountRounded)
+	get taxesAmountRounded() {
+		let taxesAmountRounded = 0
+
+		if(this.hasBasicTax()) {
+			taxesAmountRounded += Item._roundUp(this._price * BASIC_TAX)
+		}
+
+		if(this.isImported()) {
+			taxesAmountRounded += Item._roundUp(this._price * IMPORTED_TAX)
+		}
+
+		taxesAmountRounded = Item.fixFloatingPoint(taxesAmountRounded)
+
+		return taxesAmountRounded * this._quantity
 	}
 	get shelfPrice() {
-		const shelfPrice = this._price * this._quantity + this.taxAmountRounded
-		return Item.fixFloatingPointBug(shelfPrice)
+		const shelfPrice = this._price * this._quantity + this.taxesAmountRounded
+		return Item.fixFloatingPoint(shelfPrice)
+	}
+	hasBasicTax() {
+		return this._hasBasicTax
 	}
 	isImported() {
 		return this._isImported
 	}
 
-	static fixFloatingPointBug(floatNumber) {
+	static _roundUp(tax) {
+		return Math.ceil(tax / ROUND_PRECISION) * ROUND_PRECISION
+	}
+
+	static fixFloatingPoint(floatNumber) {
 		// floating point representation fail: https://gooroo.io/GoorooTHINK/Article/16306/Is-Math-Broken-in-JavaScript-Part-2/18867#.WrYUuZPwa34
 		return parseFloat(floatNumber.toFixed(2))
 	}
