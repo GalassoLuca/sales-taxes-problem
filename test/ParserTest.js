@@ -3,11 +3,21 @@ const chai = require('chai')
 const expect = chai.expect
 
 describe('Parser test', function() {
-	it('all the parameters should be parsed correctly', function() {
+	it('the quantity should be `2`', function() {
+		const item = Parser.parseItem('2 book at 12.49')
+
+		expect(item.quantity).to.equal(2)
+	})
+
+	it('the name should be `book`', function() {
 		const item = Parser.parseItem('2 book at 12.49')
 
 		expect(item.name).to.equal('book')
-		expect(item.quantity).to.equal(2)
+	})
+
+	it('the price should be `12.49`', function() {
+		const item = Parser.parseItem('2 book at 12.49')
+
 		expect(item.price).to.equal(12.49)
 	})
 
