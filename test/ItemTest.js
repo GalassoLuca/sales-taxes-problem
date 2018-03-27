@@ -2,7 +2,7 @@ const Item = require('../src/Item')
 const chai = require('chai')
 const expect = chai.expect
 
-describe('Tests of the Item', function() {
+describe('Testing the Item', function() {
 	it('the name should be correct', function() {
 		const name = 'book'
 		const item = new Item(name, 2, 12.49, false)

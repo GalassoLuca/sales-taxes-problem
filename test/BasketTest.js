@@ -6,7 +6,7 @@ const INPUT1 = require('./fixtures/input1.json')
 const INPUT2 = require('./fixtures/input2.json')
 const INPUT3 = require('./fixtures/input3.json')
 
-describe('Tests of the shopping Basket', function() {
+describe('Testing the shopping Basket', function() {
 	it('empty basket has 0 taxes', function() {
 		const basket = new Basket()
 

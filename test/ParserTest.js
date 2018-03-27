@@ -2,7 +2,7 @@ const Parser = require('../src/Parser')
 const chai = require('chai')
 const expect = chai.expect
 
-describe('Parser test', function() {
+describe('Testing the Parser', function() {
 	it('the quantity should be `2`', function() {
 		const item = Parser.parseItem('2 book at 12.49')
 
