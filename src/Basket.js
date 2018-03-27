@@ -1,34 +1,23 @@
+const Utils = require('./Utils')
+
 module.exports = class Baskets {
 	constructor() {
 		this._items = []
 	}
 	get taxedPrice() {
-		let taxedPrice = 0
-
-		this._items.forEach(item => { taxedPrice += item.shelfPrice })
-
-		return taxedPrice
+		const taxedPrice = this._items.reduce((taxedPrice, item) => taxedPrice + item.shelfPrice, 0)
+		return Utils.fixFloatingPoint(taxedPrice)
 	}
-	get taxesAmount() {
-		let taxesAmount = 0
-
-		this._items.forEach(item => { taxesAmount += item.taxesAmountRounded })
-
-		return taxesAmount
+	get taxesAmountRounded() {
+		const taxesAmountRounded = this._items.reduce((taxesAmountRounded, item) => taxesAmountRounded + item.taxesAmountRounded, 0)
+		return Utils.fixFloatingPoint(taxesAmountRounded)
 	}
 	get receipt() {
 		let receipt = ''
-		let taxesAmount = 0
-		let taxedPrice = 0
 
-		this._items.forEach(item => {
-			receipt += item.quantity + ' ' + (item.isImported() ? 'imported ' : '') + item.name + ': ' + item.shelfPrice.toFixed(2) + '\n'
-			taxesAmount += item.taxesAmountRounded
-			taxedPrice += item.shelfPrice
-		})
-
-		receipt += 'Sales Taxes: ' + taxesAmount.toFixed(2) + '\n'
-		receipt += 'Total: ' + taxedPrice.toFixed(2)
+		receipt += this._items.map(item => item.toString()).join('\n') + '\n'
+		receipt += 'Sales Taxes: ' + this.taxesAmountRounded.toFixed(2) + '\n'
+		receipt += 'Total: ' + this.taxedPrice.toFixed(2)
 
 		return receipt
 	}

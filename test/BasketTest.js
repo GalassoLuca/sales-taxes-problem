@@ -10,13 +10,27 @@ describe('Tests of the shopping Basket', function() {
 	it('empty basket has 0 taxes', function() {
 		const basket = new Basket()
 
+		expect(basket.taxesAmountRounded).to.equal(0)
+	})
+
+	it('empty basket has nothing to pay', function() {
+		const basket = new Basket()
+
 		expect(basket.taxedPrice).to.equal(0)
 	})
 
-	it('empty basket has no amount to pay', function() {
+	it('the amount of the taxes should be correct', function() {
 		const basket = new Basket()
+		INPUT1.forEach(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
 
-		expect(basket.taxesAmount).to.equal(0)
+		expect(basket.taxesAmountRounded).to.equal(1.5)
+	})
+
+	it('the final price should be correct', function() {
+		const basket = new Basket()
+		INPUT1.forEach(item => { basket.addItem(new Item(item.name, item.quantity, item.price, item.hasBasicTax, item.isImported)) })
+
+		expect(basket.taxedPrice).to.equal(42.32)
 	})
 
 	describe('Check the receipt of the given input', function() {

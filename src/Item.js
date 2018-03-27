@@ -1,6 +1,7 @@
 const IMPORTED_TAX = 0.05
 const BASIC_TAX = 0.10
 const ROUND_PRECISION = 0.05
+const Utils = require('./Utils')
 
 module.exports = class Item {
 	constructor(name, quantity, price, hasBasicTax, isImported = false) {
@@ -30,13 +31,13 @@ module.exports = class Item {
 			taxesAmountRounded += Item._roundUp(this._price * IMPORTED_TAX)
 		}
 
-		taxesAmountRounded = Item.fixFloatingPoint(taxesAmountRounded)
+		taxesAmountRounded = Utils.fixFloatingPoint(taxesAmountRounded)
 
 		return taxesAmountRounded * this._quantity
 	}
 	get shelfPrice() {
 		const shelfPrice = this._price * this._quantity + this.taxesAmountRounded
-		return Item.fixFloatingPoint(shelfPrice)
+		return Utils.fixFloatingPoint(shelfPrice)
 	}
 	hasBasicTax() {
 		return this._hasBasicTax
@@ -45,13 +46,12 @@ module.exports = class Item {
 		return this._isImported
 	}
 
-	static _roundUp(tax) {
-		return Math.ceil(tax / ROUND_PRECISION) * ROUND_PRECISION
+	toString() {
+		return this.quantity + ' ' + (this.isImported() ? 'imported ' : '') + this.name + ': ' + this.shelfPrice.toFixed(2)
 	}
 
-	static fixFloatingPoint(floatNumber) {
-		// floating point representation fail: https://gooroo.io/GoorooTHINK/Article/16306/Is-Math-Broken-in-JavaScript-Part-2/18867#.WrYUuZPwa34
-		return parseFloat(floatNumber.toFixed(2))
+	static _roundUp(tax) {
+		return Math.ceil(tax / ROUND_PRECISION) * ROUND_PRECISION
 	}
 }
 
