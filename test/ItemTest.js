@@ -159,10 +159,9 @@ describe('Testing the Item', function() {
 		it('the shelf price should not be rounded', function() {
 			const price = 0.01
 			const hasBasicTax = true
-			const isImported = true
-			const item = new Item('book', 1, price, hasBasicTax, isImported)
+			const item = new Item('book', 1, price, hasBasicTax)
 
-			expect(item.shelfPrice).to.equal(0.11)
+			expect(item.shelfPrice).to.equal(0.06)
 		})
 	})
 })

@@ -16,7 +16,8 @@ module.exports = class Parser {
 		
 		const quantity = parseInt(textArray.shift())
 		const price = parseFloat(textArray.pop())
-		// remove 'at'
+
+		// remove the word 'at'
 		textArray.pop()
 
 		const isImported = textArray.includes('imported')

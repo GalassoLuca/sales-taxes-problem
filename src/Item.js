@@ -31,9 +31,9 @@ module.exports = class Item {
 			taxesAmountRounded += Item._roundUp(this._price * IMPORTED_TAX)
 		}
 
-		taxesAmountRounded = Utils.fixFloatingPoint(taxesAmountRounded)
+		taxesAmountRounded *= this._quantity
 
-		return taxesAmountRounded * this._quantity
+		return Utils.fixFloatingPoint(taxesAmountRounded)
 	}
 	get shelfPrice() {
 		const shelfPrice = this._price * this._quantity + this.taxesAmountRounded
